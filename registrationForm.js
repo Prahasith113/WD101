@@ -10,7 +10,30 @@ else {
     userInfo = JSON.parse(localStorage.getItem("userEntries"));
     console.log("else");
 }
+const displyEntries = () => {
+    let entries = retrieveTheEntries()
+    const tableEntries = entries.map((entry) => {
+        const nameCell = `<td class='border px-4 py-2'>${entry.FullName}</td>`
+        const emailCell = `<td class='border px-4 py-2'>${entry.email}</td>`
+        const passwordCell = `<td class='border px-4 py-2'>${entry.password}</td>`
+        const dobCell = `<td class='border px-4 py-2'>${entry.dob}</td>`
+        const acceptTermsCell = `<td class='border px-4 py-2'>${entry.acceptTerms}</td>`
+        const row = `<tr>${nameCell} ${emailCell} ${passwordCell} ${dobCell} ${acceptTermsCell}</tr>`
+        return row
 
+    }).join('\n')
+    const tableContent = ` <table class='table-auto w-full'>
+        <tr>
+        <th class='px-4 py-2 '>Name </th>
+        <th class='px-4 py-2 '>Email </th>
+        <th class='px-4 py-2 '>Password </th>
+        <th class='px-4 py-2 '>Dob </th>
+        <th class='px-4 py-2 '>Accepted terms? </th>
+        </tr>${tableEntries}
+    </table>`
+    let details = document.getElementById('user-entries')
+    details.innerHTML = tableContent
+}
 const saveTheFormUser = (event) => {
     event.preventDefault();
     const FullName = document.getElementById('name').value
@@ -60,27 +83,3 @@ const retrieveTheEntries = () => {
 userForm.addEventListener('submit', saveTheFormUser)
 displyEntries()
 
-const displyEntries = () => {
-    let entries = retrieveTheEntries()
-    const tableEntries = entries.map((entry) => {
-        const nameCell = `<td class='border px-4 py-2'>${entry.FullName}</td>`
-        const emailCell = `<td class='border px-4 py-2'>${entry.email}</td>`
-        const passwordCell = `<td class='border px-4 py-2'>${entry.password}</td>`
-        const dobCell = `<td class='border px-4 py-2'>${entry.dob}</td>`
-        const acceptTermsCell = `<td class='border px-4 py-2'>${entry.acceptTerms}</td>`
-        const row = `<tr>${nameCell} ${emailCell} ${passwordCell} ${dobCell} ${acceptTermsCell}</tr>`
-        return row
-
-    }).join('\n')
-    const tableContent = ` <table class='table-auto w-full'>
-        <tr>
-        <th class='px-4 py-2 '>Name </th>
-        <th class='px-4 py-2 '>Email </th>
-        <th class='px-4 py-2 '>Password </th>
-        <th class='px-4 py-2 '>Dob </th>
-        <th class='px-4 py-2 '>Accepted terms? </th>
-        </tr>${tableEntries}
-    </table>`
-    let details = document.getElementById('user-entries')
-    details.innerHTML = tableContent
-}
